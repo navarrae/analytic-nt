@@ -1,0 +1,48 @@
+\section{Negative values of Zeta}
+Now we've built up some machinery to find negative entries for $\zeta$. Consider
+$\zeta(s) = \frac{\xi(s)}{\pi^{-\frac{s}{2}}\Gamma(s/2)}$. Then
+\begin{theorem}
+    $\zeta(s)$ extends to a holomorphic function on 
+    $\mathbb{C}\backslash\{1\}$ with $\zeta(-2m)=0, \forall m \in\mathbb{Z}^+$, and 
+    \[\zeta(1-2m)=-\frac{B_{2m}}{2m}, \forall m\in\mathbb{Z}^+\] and $\zeta(0)=-\frac{1}{2}$.
+\end{theorem}
+\begin{proof}
+    We first outline some properties that we need for $\Gamma$.\\\\
+    $\textbf{(i)}$ $\Gamma(s)$ is never 0. This follows from 
+    \[\Gamma(s)\Gamma(1-s)=\frac{\pi}{\sin(\pi-s)}, \;\; s\in\mathbb{C}\backslash\mathbb{Z}_{\leq 0}\]
+    Then $\frac{1}{\Gamma(s)}=\frac{\sin(\pi s)\cdot \Gamma(1-s)}{\pi}$ remains bounded.\\\\
+    $\textbf{(ii)}$ 
+    \[
+        \zeta(1-s)=\frac{\zeta(1-s)}{\pi^{-\frac{1-s}{2}}\Gamma(\frac{1-s}{2})}
+        =\frac{\zeta(s)}{\pi^{-\frac{s}{2}}\Gamma(\frac{s}{2})}\cdot\frac{\pi^{-\frac{s}{2}}
+        \Gamma(\frac{s}{2})}{\pi^{-\frac{1-s}{2}}\Gamma(\frac{1-s}{2})}
+        =\zeta(s)\cdot{\pi^{-s+\frac{1}{2}}}\frac{\Gamma(\frac{s}{2})}{\Gamma(\frac{1-s}{2})}
+    \]\\
+    $\textbf{(iii)}$ $\Gamma(s)\cdot\Gamma(s+\frac{1}{2})=\frac{2\sqrt{\pi}}{2^s}\Gamma(2s)$ \\\\
+    These properties yield:
+    \begin{equation}
+        \Gamma(\frac{1-s}{2})\Gamma(1-\frac{1-s}{2})=\frac{\pi}{\sin(\pi(\frac{1-s}{2}))}=
+        \frac{\pi}{\frac{\cos(\pi s)}{2}}  
+    \end{equation}
+    and 
+    \begin{equation}
+        \Gamma(\frac{s}{2})\Gamma(\frac{s+1}{2})=\frac{2\sqrt{\pi}}{2^{\frac{s}{2}}}\Gamma(s)
+    \end{equation}
+
+    Combining these gives 
+    \[
+        \frac{\Gamma(\frac{s}{2})}{\Gamma(\frac{1-s}{2})}=\frac{2\sqrt{\pi}}{2^{\frac{s}{2}}}
+        \Gamma(s) \cdot\frac{\cos(\frac{\pi s}{2})}{\pi}  
+    \]
+    
+    Thus, $\zeta(1-s)=\zeta(s)\pi^{-s}\cdot 2^{-\frac{s}{2}+1}\Gamma(s)\cos(\pi s/2)$
+    Finally, 
+    \[
+        \zeta(1-2m)=\zeta(2m)\pi^{-2m}\cdot 2^{-2m+1}\Gamma(2m)\cos(\pi m)\]\[
+        =(-1)^m\pi^{2m}\frac{2^{2m-1}}{(2m-1)!}(\frac{-B_{2m}}{2m})\pi^{-2m}\cdot2^{-2m+1}(2m-1)!(-1)^m
+    \]
+    Cancelling yields: 
+    \[
+        \zeta(1-2m)=\frac{-B_{2m}}{2m}
+    \]  
+\end{proof}

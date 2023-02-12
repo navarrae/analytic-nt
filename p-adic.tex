@@ -1,0 +1,124 @@
+\section{P-adic Properties $\&$ Interpolation of $L$-values}
+Recall: 
+\[
+    \zeta(1-n)=-\frac{B_n}{n}, \;\; \forall n\in\mathbb{Z}_{>1}
+\]
+For $\chi$ primitive Dirichlet Character 
+\[
+    L(\chi, 1-n)=-\frac{B_{n,\chi}}{n},\;\; \forall n\in\zz_{\geq 1}  
+\]
+
+Now we turn to the following question: What can we say about divisibility properties of 
+these (almost) rational numbers?
+\begin{itemize}
+    \item What $p$ divides the numerator
+    \item What $p$ divides the denominator
+    \item Is there any congruence relation between these special values.
+\end{itemize}
+
+\begin{theorem}
+    Let $p$ be prime, $n\in\zz_{\geq 1}$. 
+    \begin{enumerate}
+        \item If $n\not\equiv 0 \pmod{p-1}$, then $-\frac{B_n}{n}=\zeta(1-n)$ \[\in\zz_{(p)}
+        = \{a\in\mathbb{Q} |\; a=\frac{b}{c};\; b,c\in\mathbb{Z}\;\&\; (b,c)=1, \text{ with } p\nmid c\}\]
+        \item If $n\equiv 0 \pmod{p-1}$, then $p\cdot B_n\equiv -1 \pmod{p}$. ie (1)+(2)$\implies$
+        $B_n\in\sum_{(p-1)|n}-\frac{1}{p}+\mathbb{Z}$
+        \item Kummer congruences: Let $n\equiv n' \pmod{p-1}$ and are $\not\equiv 0\pmod{p-1}$. Then 
+        \[-\frac{B_n}{n}=\zeta(1-n)\equiv \zeta(1-n')=-\frac{B_{n'}}{n'} \pmod{p\zz_{(p)}}\]
+        More generally, for 
+        $n\equiv n' \pmod{(p-1)p^n} \;\& \not\equiv 0 \pmod{p-1}$, 
+        \[(1-p^{n-1})\zeta(1-n)\equiv (1-p^{n'-1})\zeta(1-n')\pmod{p^{n+1}\zz_{(p)}}\]
+        \item Kummer criterion: The following are equivalent: 
+        \begin{itemize}
+            \item $\forall$ even $m$, $2\leq m \leq p-3$, $p\nmid\zeta(1-m)$ in $\mathbb{Z}_{(p)}$
+            \item $p\nmid \# C\ell(\zz[\zeta_p])$ where $\zz[\zeta_p]$ is the ring of algebraic integers in 
+            $\mathbb{Q}[\zeta_p]$ and $C\ell(\cdot)$ is the class group
+        \end{itemize}
+    \end{enumerate}
+\end{theorem}
+\begin{example}
+    $p=691 | -\frac{B_{12}}{12}=\zeta(-11)$, so by Kummer, $691|\# C\ell(\zz[\zeta_{691}])$
+\end{example}
+
+Kummer criterion is proven using analytic class cumber formula for the number field $K=\mathbb{Z}[\zeta_p]$.
+For any number field $K$, the Dedekind zeta function of $K$ is 
+\[\zeta_K(s)=\prod_{\substack{\text{prime ideals
+p }\\\text{of }\{\text{alg. int of K\}}}}(1-N(p)^{-s})^{-1}
+.\]
+Then $\zeta_k$ extends to a holomorphic function on $\mathbb{C}\backslash\{1\}$
+with $(s-1)\cdot \zeta_k(s)$ holomorphic on $\mathbb{C}$; its value at $s=1$ is an interesting number: product of 
+various interesting numbers. \\\\
+A much deeper theorem (Herbrand-Ribot Theorem) produces elements of the class group.\\\\
+We want to move towards a p-adic version of the $L$-functions. We'll first define 
+and build some theory for the p-adics. \\\\
+Fix a prime $p$. Say $p=3$. Put integers into mod 3 boxes. Within these boxes, mod out by 9, then by 27, etc.
+The 3-adics will be a number system containing the integers in which two integers are close if they are in many common boxes.
+More precisely, 
+\begin{definition}
+    Fix prime $p$. Let $a\in\mathbb{Q}$ Write $a=p^r\cdot \frac{u}{v}, r\in\mathbb{Z},u,v\in\mathbb{Z}: p\nmid (u\cdot v)$.
+    Define the p-adic valuation of a to be $v_p(a)=r$. So $v_p:\mathbb{Q}\backslash\{0\}\rightarrow \mathbb{Z}$ and
+    we set $v_p(0)=\infty$.
+\end{definition}
+We note that $a$ has a unique p-adic representation in this form.
+\begin{lemma}
+    \begin{enumerate}
+        \item $\forall a,b\in\mathbb{Q}$, $v_p(ab)=v_p(a)+v_p(b)$
+        \item $v_p(a+b)\geq \min{(v_p(a),v_p(b))}$
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Let $a=\frac{a_1}{a_2}$ and $b=\frac{b_1}{b_2}$.
+    We first prove (1). \\\\
+    We can represent
+    \[
+        ab =  \frac{a_1}{a_2}\cdot\frac{b_1}{b_2}=p^{r_1}\cdot\frac{u_1}{v_1}
+    \]
+    Then $v_p(ab)=r_1$. Similarly, write $a=p^{r_2}\cdot \frac{u_2}{v_2}$ and 
+    $b=p^{r_3}\cdot \frac{u_3}{v_3}$. Then 
+    \[
+        p^{r_1}\cdot \frac{u_1}{v_1}=p^{r_2+r_3}\frac{u_2}{v_2}\cdot\frac{u_3}{v_3}
+    \]  
+    So $v_p(ab)=v_p(a)+v_p(b)\implies r_1=r_2+r_3$ is only satisfied if 
+    $\frac{u_1}{v_1}=\frac{u_2}{v_2}\cdot\frac{u_3}{v_3}$. But this must be true by 
+    our assumptions on $p$ and uniqueness of this p-adic representation.
+    \\\\
+    Now we prove (2).
+\end{proof}
+Example: Consider the sequence $(a_n=1+p+p^2+\cdots+p^{n-1}\in\zz)_{n\geq 1}$.
+\[
+    \frac{1}{1-p}-a_n=\frac{1}{1-p} -(\frac{1-p^n}{1-p})=\frac{p^n}{1-p} 
+    \text{ has }v_p(\frac{1}{1-p}-a_n)=n \rightarrow \infty \text{ as }n\rightarrow \infty
+\]      
+The p-adics will be a metric space where the sequence $(a_n)_{n\geq 1}$ converges to $\frac{1}{1-p}$
+\begin{definition}
+    For $a\in\mathbb{Q},$ define the p-adic absolute value of $a$ by $|a|_p=p^{-v_p(a)}$. The p-adic
+    distance between $a,b\in\mathbb{Q}$ is $d_p(a,b)=|a-b|_p$, so $a$ and $b$ are close when 
+    $a-b\equiv 0 \pmod{(p^{\text{large}})\cdot \zz_{(p)}}$
+\end{definition}
+
+\begin{lemma} 
+    \begin{enumerate}
+        \item  $\forall a,b \in \mathbb{Q}$ $|a\cdot b|_p=|a|_p\cdot |b|_p$
+        \item $|a+b|_p\leq\max{|a|_p,|b|_p}$ with equality if $|a|\neq |b|_p$.
+        \item $|a|_p=0 \iff a=0$
+    \end{enumerate}
+\end{lemma}
+We'll present a p-adic generalization of the Dirichlet L-function.
+\begin{theorem}
+    For primitive $\chi$, there exists a unique analytic function $L_p(\chi,s)$
+    st $\forall n\in\zz{\geq 1}$
+    \[
+        L_p(\chi,1-n)=(1-(\chi\omega^{-n})(p)p^{n-1})L(\chi\omega^{-n},1-n)  
+        =(1-(\chi\omega^{-n})(p)p^{n-1})\cdot\frac{-B_{n,\chi\omega^{-n}}}{n}
+    \]
+\end{theorem}
+\begin{example}
+    Let $\chi=\omega^n$. If $n\not\equiv 0\pmod{p-1}$, then $\omega^n$ and $\chi$
+    are primitive $\pmod(p)$, but for $(\chi\omega^{-n})$, we take the trivial character
+    mod 1, not the trivial character mod $p$.
+    Thus
+    \[
+        L_p(\omega^n,1-n)=[1-(\chi\omega^{-n})(p)p^{n-1}]L(\chi\omega^{-n},1)
+        =(1-p^{n-1})\cdot\zeta(1-n)  
+    \]
+\end{example}

@@ -1,0 +1,85 @@
+\section{Special Values of $L$-functions}
+We'll use these established holomorphicity theorems for our functional equation to precisely state some results 
+for $L$-functions.
+\begin{definition}
+    The generalized Bernoulli Numbers $B_{n,\chi}, n\in\mathbb{Z}_{\geq 0}$ are defined 
+    by 
+    \[
+        \sum_{n=0}^{\infty}B_{n,\chi}\frac{t^n}{n!} = \sum_{a=1}^n\chi(a)\frac{te^{at}}{e^{mt}-1} 
+        =F_x(t) 
+    \]
+\end{definition}
+Let $\chi:(\mathbb{Z}/m\mathbb{Z})^{\times}\rightarrow \mathbb{C}^{\times}$ be a Dirichlet Character
+extended by 0 to $\chi:\mathbb{Z}/m\mathbb{Z}\rightarrow \mathbb{C}$. Then $\chi$ has a
+Fourier transform 
+\[
+    \hat{\chi}(a)=\frac{1}{m}\sum_{k=0}^{m-1}\chi(k)e^{-2\pi iak/m}  
+\]
+and we have Fourier Inversion Formula: 
+\[
+    {\chi}(k)=\sum_{a\in\mathbb{Z}/m\mathbb{Z}}\hat{\chi(k)}e^{2\pi iak/m}=\frac{1}{m}
+    \overline{\chi}(-a)G(\chi)  
+\]
+Again, we apply Fourier Inversion on $\chi(k)$ for primitive $\chi$ 
+\[
+    \chi(k)=\sum_{a\in\mathbb{Z}/{m}\mathbb{Z}}\frac{1}{m}\overline{\chi}(-a)G(\chi)e^{2\pi iak/m}
+    =\frac{G(\chi)\chi(-1)}{m}\sum_{a\in\mathbb{Z}/m}\hat{\chi}(a)e^{2\pi iak/m}
+\]
+\[
+    =\sum_{a\in\zz/m}\frac{1}{m}\overline{\chi}(-a)G(\chi)e^{2\pi iak/m}
+    =\frac{G(\chi)\chi(-1)}{m}\sum_{a\in \zz/m}\overline{\chi}(a)e^{2\pi iak/m}
+\]  
+Thus, for $\Re(s)>1$,
+\[
+    \sum_{k=1}^{\infty}\chi(k)k^{-s}=\frac{G(\chi)\chi(-1)}{m}\sum_{k=1}^{\infty}\sum_{a\in\zz/m}
+    \overline{\chi}(a)e^{2\pi iak/m}k^{-s}  
+\]
+Now, set $A_k(x)=\sum_{n\in\zz\backslash 0}\frac{e^{2\pi inx}}{n^k}$
+\begin{claim}
+    For $k\geq 2,$ $\forall x\in[0,1],$ $A_k(x)=\frac{-(2\pi i)^k}{k!}B_k(x)$
+\end{claim}
+
+Then, plugging in $B_n(x)$, we get 
+$L(\chi,k)=\frac{\chi(-1)G(\chi)}{2m}\sum_{a=1}^m\overline{\chi}(a)\frac{-(2\pi i)^k}{k!}B_k(\frac{a}{m})$.
+Applying the functional equation with $\Lambda$, we get
+\[
+    L(\chi,1-k)=\frac{\Lambda(\chi,1-k)}{(\frac{m}{\pi})^{\frac{1-k}{2}}\Gamma(\frac{1-k+p}{2})}
+    =\Lambda(\overline{\chi},k)\cdot\frac{G(\chi)}{i^p\sqrt{m}}\cdot\frac{1}{(\frac{m}{\pi})^{\frac{1-k}{2}}\Gamma(\frac{1-k+p}{2})}
+\]
+\[
+    =L(\overline{\chi},k)\cdot \frac{G(\chi)}{i^p\sqrt{m}}\cdot\frac{(\frac{m}{\pi})^{\frac{k}{2}}\Gamma(\frac{k+p}{2})}{(\frac{m}{\pi})^{\frac{1-k}{2}}\Gamma(\frac{1-k+p}{2})}  
+    \]\[=\big(\frac{\chi(-1)G(\overline{\chi})(2\pi i)^k)}{2mk!}\sum_{i=1}^m\chi(j)
+    B_k(\frac{j}{m})\big)\frac{G(\chi)}{i^p\sqrt{m}}\cdot(\frac{m}{\pi})^{k-\frac{1}{2}}
+    \cdot\frac{\Gamma(\frac{k+p}{2})}{\Gamma(\frac{1-k+p}{2})}
+\]
+\begin{claim}
+    If $p=0$, $\frac{\Gamma(\frac{k+p}{2})}{\Gamma(\frac{1-k+p}{2})}=\frac{2(k-1)!}
+    {\sqrt{\pi}2^k}(-1)^{\frac{k}{2}}$. If $p=1$, $\frac{\Gamma(\frac{k+p}{2})}{\Gamma(\frac{1-k+p}{2})}=\frac{2\Gamma(k-1)}
+    {\sqrt{\pi}2^{k-1}}(-1)^{\frac{k-1}{2}}$
+\end{claim}
+We make the following observations of $L(\chi,1-k)$: all powers of $\pi$ and $2$ cancel.
+After this simplification, we're left with 
+\[
+    L(\chi,1-k)=(-(-1)^pi^{k-p}(-1)^{\frac{k-p}{2}}(-1)^pm)\cdot\frac{m^{k-\frac{1}{2}}}{m\sqrt{m}}
+    \cdot \frac{(k-1)!}{k!}\cdot\sum_{j=1}^m\chi(j)B_k(\frac{j}{m})
+    \]\[=-\frac{1}{k}\cdot m^{k-1}\sum_{j=1}^m\chi(j)B_k(\frac{j}{m})  
+\]
+\begin{claim}
+    $B_{k,\chi}=m^{k-1}\sum_{j=1}^m\chi(j)B_k(\frac{j}{m})$
+\end{claim}
+\begin{proof}
+    This can be proven easily via simple expansion of the generating function definition.
+    We have 
+    \[
+        \sum_{n=0}^{\infty}[m^{n-1}\sum_{j=1}^m\chi(j)B_n(\frac{j}{m})]\cdot\frac{t^n}{n!}
+        =\sum_{j=1}^m\frac{\chi(j)}{m}\sum_{n=0}^{\infty}B_n(\frac{j}{m})\frac{(mt)^n}{n!}  
+    \]
+    \[
+        =\sum_{j=1}^m\frac{\chi(j)}{m}\frac{mt}{e^{mt}-1}e^{j/m\cdot mt}=\sum_{j=1}^m
+        \chi(j)\frac{te^{it}}{e^{mt}-1}=\sum_{n=0}^{\infty}B_{n,\chi}\frac{t^n}{n!}  
+    \]
+\end{proof}
+We can conclude that 
+\[
+    L(\chi,1-k)=-\frac{B_{n,\chi}}{k}  
+\]

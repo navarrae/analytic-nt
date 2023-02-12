@@ -1,0 +1,260 @@
+\section{Positive Zeta Values}
+    Part of the motivation behind the Bernoulli Numbers involves sums of the form 
+    \[\sum_{i=1}^ni^k\] for $k\in \mathbb{Z}^{+}$. 
+    These numbers show up frequently in analysis, and are useful for deriving expressions for 
+    the Riemann Zeta function, $\zeta(s)=\sum_{n=1}^{\infty}\frac{1}{n^s}$. 
+\begin{definition}
+    $B_0=1,B_1=-\frac{1}{2}, B_2=\frac{1}{6}, B_3 = 0$. 
+    Our first recursive definition of these numbers is:
+    \[(m+1)B_m=-\sum_{i=0}^{m-1}{{m+1}\choose i} B_i\]
+\end{definition}
+It can be shown that this formulation has an interchangeable definition.
+\begin{theorem}
+    The Bernoulli Numbers can be modelled via a generating function. 
+    \[\frac{t}{e^t-1}=\sum_{m=0}^{\infty}B_m\frac{t^m}{m!}\]
+\end{theorem}
+
+\begin{corollary}
+    Oddly indexed Bernoulli Numbers are 0.
+\end{corollary}
+We now consider a Fourier Series approach to computing the Zeta function with Bernoulli Numbers. Let's first build up some
+theory on Fourier Analysis.
+Let $f:[a,b]\rightarrow \mathbb{C}$ be Riemann integrable. Set $L=b-a$, where $f$ is L-periodic.
+\begin{definition}
+    $\forall n\in\mathbb{Z}$ let the n-th Fourier coefficient be 
+    \[
+        \hat{f}(n)=\frac{1}{L}\int_a^bf(x)e^{-2\pi inx/L}\; dx
+    \]
+    and the Fourier series of $f$:
+    \[
+        f(x)=\sum_{n\in\mathbb{Z}}\hat{f}(n)e^{2\pi inx/L}  
+    \]
+\end{definition}
+\begin{example}
+    Compute $\hat{f}(n)$ for $\cos(\alpha x), x\in [-\pi,\pi], \alpha\in\mathbb{C}\backslash\mathbb{Z}$
+\end{example}
+\textbf{Solution:} We know $f(x)=\sum_{n\in\mathbb{Z}}\hat{f}(n)e^{i\pi n}$,
+where $\hat{f}(n)=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)e^{-inx}\;dx$.
+So 
+\[
+    \hat{f}(n)=\frac{1}{2\pi}\int_{-\pi}^{\pi}\cos(\alpha x)e^{-inx}\;dx
+    =\frac{1}{2\pi}\int_{-\pi}^{\pi}\frac{e^{i\alpha x}+e^{-i\alpha x}}{2}e^{-inx}\; dx
+    \]
+    \[= \frac{1}{4\pi}\big[\int_{-\pi}^{\pi}(e^{i\alpha x}+e^{-i\alpha x})e^{-inx}\; dx\big]
+\]
+Solving both integrals yields 
+\[
+    \hat{f}(n) = \frac{1}{4\pi}\big[\frac{e^{i\pi(\alpha-n)}-e^{-i\pi(\alpha-n)}}{i(\alpha-n)}+
+    \frac{e^{-i\pi(\alpha+n)}-e^{\pi i(\alpha+n)}}{-i(\alpha+n)}\big]
+\]  
+\[
+    =\frac{1}{4\pi}\big[\frac{2\sin(\pi(\alpha-n))}{\alpha-n}+\frac{2\sin(\pi(\alpha+n))}{\alpha+n}\big]
+\]
+Expansion into sums and differences of $\sin$ and $\cos$ leads to much cancellation and finally,
+\[
+    \hat{f}(n)=\frac{\alpha \sin(\pi \alpha)(-1)^n}{\pi(\alpha^2-n^2)}
+\]  
+\begin{theorem}
+    Let $f:\mathbb{R}\rightarrow \mathbb{C}$ be riemann integrable on any closed interval, and 
+    periodic with period $L$. Then the Fourier coefficients of $f$ don't depend on which $L$-interval
+    is used to compute them.
+\end{theorem}
+\begin{proof}
+    The periodicity conditions here trivialize the solution. Formally, integrating by parts will
+    yield that the result reduces to showing 
+    \[
+        f(t)-f(t+L)=f(t_0)-f(t_0+L)
+    \]
+    which must be true, since they are both $0$ by periodicity.
+
+\end{proof}
+
+\begin{theorem}
+    When $f$ is twice continuously differentiable on the circle $\mathbb{R}/2\pi\mathbb{Z}$, 
+    it satisfies \[\sum_{n\in\mathbb{Z}}|\hat{f}(n)|<\infty\]
+\end{theorem}
+
+\begin{proof}
+    We'll prove this by finding a form for the fourier coefficients, and bounding the resultant 
+    by some constant. We have 
+    \[
+        \hat{f}(n)=\frac{1}{2\pi}\int_0^{2\pi}f(\theta)e^{-in\theta}\;d\theta 
+        = \frac{1}{2\pi}f(\theta)\frac{-e^{-in\theta}}{in}\bigg |_0^{2\pi}+\frac{1}{2\pi i n}\int_0^{2\pi}
+        f'(\theta)e^{-in\theta}\; d\theta 
+    \]
+    \[
+        =\frac{1}{2\pi i n}\int_0^{2\pi}f'(\theta)e^{-in\theta}\;d\theta
+    \]
+    Integrating by parts again, this is equal to 
+    \[
+        \frac{1}{2\pi in}f'(\theta)\frac{-e^{-in\theta}}{in}\bigg |_0^{2\pi}+\frac{1}{2\pi(in)^2}
+        \int_0^{2\pi}f''(\theta)e^{-in\theta}\; d\theta 
+    \]
+    \[ -\frac{1}{n^2}\int_0^{2\pi}f''(\theta)e^{-in\theta}\; d\theta
+        \leq -\frac{1}{n^2}\int_0^{2\pi}|f''(\theta)|\;d\theta
+    \]
+    So \[
+        |\hat{f}(n)|\leq \frac{1}{n^2}\int_0^{2\pi}|f''(\theta)\;d\theta
+    \]
+    Bound the integral by $B$, which must be constant by our assumptions of continuity and differentiability.
+    Then 
+    \[
+        \sum_{n\in\mathbb{Z}}|\hat{f}(n)|\leq \sum_{n\in\mathbb{Z}}\frac{1}{n^2}\int_0^{2\pi}|f''(\theta)|\; 
+        d\theta\leq \sum_{n\in\mathbb{Z}}(\frac{1}{n^2}\cdot B)=B\sum_{n\in\mathbb{Z}}\frac{1}{n^2}<\infty
+    \]
+\end{proof}
+Now, lets consider these Bernoulli Numbers through the lense of Fourier Analysis. 
+We begin with Bernoulli polynomials.
+\begin{definition}
+    Define the Bernoulli polynomials $B_n(x)$, $n\in \mathbb{Z}_{\geq 0}$ by the generating function
+    \[\frac{te^{xt}}{e^{t}-1}=\sum_{k=0}^{\infty}B_k(x)\frac{t^k}{k!}\]
+\end{definition}
+We'll begin with a simple lemma about power series.
+\begin{lemma}
+    Let $f(t)=\sum_{n=0}^{\infty}a_nt^n$ and $g(t)=\sum_{n=0}^{\infty}b_nt^n$
+    Then \[f(t)g(t)=\sum_{n=0}^{\infty}\big[(\sum_{k=0}^na_{n-k}b_k)t^n\big]\]
+\end{lemma}
+\begin{proof}
+    A simple expansion of $fg$ and reordering \& factoring of terms willl yield the result.
+\end{proof}
+\begin{lemma}
+    $B_k(x)=\sum_{i=0}^{k}{k\choose i}B_ix^{k-i}$
+\end{lemma}
+Now, we prove a series of lemmas that will help us derive neat properties for $\zeta$ and $B_m$.
+\begin{proof}
+    We have
+    \[
+        \frac{te^{xt}}{e^t-1}=\frac{t}{e^t-1}e^{xt}=\big(\sum_{m=0}^{\infty}
+        B_m\cdot\frac{t^m}{m!}\big)\big(\sum_{m=0}^{\infty}\frac{(xt)^m}{m!}\big)
+    \]
+    \[
+        =\sum_{n=0}^{\infty}\big(\sum_{m=0}^n \big(\frac{B_m}{m!}\cdot
+        \frac{x^{m-n}}{(n-m)!}\big)\big)t^n    
+        =\sum_{n=0}^{\infty}\big(\sum_{m=0}^nB_m\cdot x^{m-n}{n\choose m}\frac{1}{n!}\big)t^n
+        \]\[=\sum_{n=0}^{\infty}\big(\sum_{m=0}^n{n\choose m}B_mx^{m-n}\big)\frac{t^n}{n!}
+    \]
+    Thus, 
+    \[
+        \sum_{k=0}^{\infty}B_k(x)\frac{t^k}{k!} = 
+        \sum_{n=0}^{\infty}\big(\sum_{m=0}^n{n\choose m}B_mx^{m-n}\big)\frac{t^n}{n!}
+    \]
+    \[
+        \implies B_k(x)=\sum_{i=0}^{k}{k\choose i}B_ix^{k-i}
+    \]  
+\end{proof}
+\begin{lemma}
+    For $k \geq 2, B_k(0) = B_k(1)$.
+\end{lemma}
+\begin{proof}
+    When $x=0$, 
+    \[
+        \frac{t}{e^t-1}=\sum_{k=0}^{\infty}B_k(0)\frac{t^k}{k!}=B_0(0)+tB_1(0)+\sum_{k=2}^{\infty}B_k(0)\frac{t^k}{k!}
+    \]
+    \[
+        1-\frac{1}{2}t+\sum_{k=2}^{\infty}B_k(0)\frac{t^k}{k!}  
+    \]
+    Thus, 
+    \[
+        \sum_{k=2}^{\infty}B_k(0)\frac{t^k}{k!} = \frac{t}{e^t-1}-1+\frac{1}{2}t=\frac{t+e^t(t-2)+2}{2(e^t-1)}
+    \]
+    When $x=1$,
+    \[
+        \frac{te^{t}}{e^t-1}=\sum_{k=0}^{\infty}B_k(1)\frac{t^k}{k!}=B_0(1)+tB_1(1)+\sum_{k=2}^{\infty}B_k(0)\frac{t^k}{k!}
+    \]
+    \[
+        1+\frac{1}{2}t+\sum_{k=2}^{\infty}B_k(0)\frac{t^k}{k!}  
+    \]
+    Thus, 
+    \[
+        \sum_{k=2}^{\infty}B_k(0)\frac{t^k}{k!} = \frac{te^t}{e^t-1}-1-\frac{1}{2}t=\frac{t+e^t(t-2)+2}{2(e^t-1)}
+    \]
+    It follows that 
+    \[
+        \sum_{k=2}^{\infty}B_k(0)\frac{t^k}{k!}=\sum_{k=2}^{\infty}B_k(1)\frac{t^k}{k!} \implies B_k(0)=B_k(1)
+    \]
+\end{proof}
+\begin{lemma}
+    For $k \geq 1, B'_k(x)=kB_{k-1}(x)$, and $\int_0^1B_k(x)\,dx =0$
+\end{lemma}
+\begin{proof}
+    We have 
+    \[
+        B_k(x)=\sum_{i=0}^{k}{k\choose i}x^{k-i}B_i\implies B'_k(x)= 
+        \sum_{i=0}^{k-1}(k-i){k\choose i}x^{k-i-1}B_i
+    \]
+    \[
+        =\sum_{i=0}^{k-1}(k-i)(\frac{k!}{(k-i)!i!})x^{k-i-1}B_i=
+        k\sum_{i=0}^{k-1}\frac{(k-1)!}{(k-i-1)!i!}x^{k-i-1}B_i
+    \]
+    \[
+        =k\sum_{i=0}^{k-1}{{k-1}\choose i}x^{k-i-1}B_i=kB_{k-1}(x)
+    \]
+    Now we compute the integral:
+    \[
+        \int_0^1B_k(x)\;dx=\int_0^1\sum_{i=0}^{k}{k\choose i}x^{k-i}B_i\; dx  
+        ={\sum_{i=0}^k{k\choose i}B_i}\int_0^1x^{k-i}\; dx
+        =\sum_{i=0}^k{k\choose i}B_i\frac{x^{k-i+1}}{k-i+1}\bigg |_0^1
+    \]
+    Continued algebraic manipulations yield 
+    \[=
+        \frac{1}{k-i+1}\sum_{i=0}^k{k\choose i}B_i  
+        =\frac{1}{k-i+1}\sum_{i=0}^k\frac{k!}{(k-i)!i!}B_i 
+    \]       
+    \[=
+        \frac{1}{k+1}\big(\sum_{i=0}^{k-1}{{k+1}\choose i}B_i+(k+1)B_k\big)
+        =  \frac{1}{k+1}\big(\sum_{i=0}^{k-1}{{k+1}\choose i}B_i-\sum_{i=0}^{k-1}{{k+1}
+        \choose i}B_i\big)=0
+    \]
+\end{proof}
+We'll now consider $B_k(x)$ as a function on $[0, 1]$, and compute its
+Fourier coefficients. We'll let $B_k(x)=\sum_{n\in\mathbb{Z}}\hat{f}(n)e^{2\pi inx}$. We also have the 
+standard definition: $B_k(x)=\sum_{i=0}^k{k\choose i}x^{k-i}B_i$
+Computing the fourier coefficients:
+\[
+    \hat{f}(n)=\int_0^1B_k(x)e^{-2\pi inx}\;dx = -\frac{1}{2\pi in}B_k(x)e^{-2\pi inx}\bigg|_0^1
+    +\frac{1}{2\pi in}\int_0^1 B_k'(x)e^{-2\pi inx}\; dx 
+\]
+\[
+    =-\frac{1}{2\pi in}\big(B_k(0)e^{-2\pi in}-B_k(1)\big)+\frac{1}{2\pi in}\int_0^1k
+    B_{k-1}(x)e^{-2\pi inx}\;dx  
+    = \frac{k}{2\pi in}\int_0^1B_{k-1}(x)e^{-2\pi inx}\; dx
+\]
+For the case of $k=1$, we know $B_k(x)=x-\frac{1}{2}$. This suggests the following 
+formula: \[\hat{f}_k(n)=-(\frac{1}{2\pi in})^k\cdot(k!)\] This is easy to check by induction.\\\\
+Now, we arrive at the grand result, a new expression for even zeta values:
+\begin{theorem}
+    For all $m\in\mathbb{Z}^+$, 
+    \[
+        \zeta(2m)=(-1)^m\pi^{2m}\frac{2^{2m-1}}{(2m-1)!}(-\frac{B_{2m}}{2m})
+    \]
+\end{theorem}
+\begin{proof}
+    We'll keep in mind the fourier results on $B_k(x)$. When $k$ is even, we see 
+    $\hat{f}_k(n)=\hat{f}_k(-n)$.
+    Thus, when $k$ is even, we get 
+    \[
+        B_k(x)=\sum_{n\in\mathbb{Z}}\hat{f}_k(n)e^{2\pi inx}=\sum_{n\in\mathbb{Z}^+}
+        (\hat{f}_k(n)e^{2\pi inx}+\hat{f}_k(-n)e^{-2\pi inx}) = 
+        \sum_{n\in\mathbb{Z}^+}
+        (\hat{f}_k(n)e^{2\pi inx}+\hat{f}_k(-n)e^{-2\pi inx})
+    \]
+    \[
+        \sum_{n\in\mathbb{Z}^+}\hat{f}_k(n)(e^{2\pi inx}+e^{-2\pi inx})
+        = \sum_{n\in\mathbb{Z}^+}
+        \hat{f}_k(n)(2\cos{(2\pi inx)})
+    \]
+    \[
+        = \sum_{n\in\mathbb{Z}^+}-(\frac{1}{2\pi in})^k\cdot k!\cdot 2\cos(2\pi nx)=-(\frac{1}{2\pi i})^k\cdot
+        k!\sum_{n\in\mathbb{Z}^+}\frac{1}{n^k}\cos{(2\pi nx)} 
+    \]
+    We also have $B_k(0)=(-\frac{1}{2\pi i})^k\cdot k!\sum_{n=1}^{\infty}\frac{1}{n^k}$.
+    So 
+    \[
+        \sum_{k=1}^{\infty}\frac{1}{n^k}=B_k(0)\cdot\frac{(-2\pi i)^k}{k!}  
+    \]
+    Recall $k$ is even. So let $k=2m$ for positive $m$. Then we can reformulate:
+    \[
+        \zeta(2m)=B_{2m}(0)\cdot \frac{(-2\pi i)^{2m}}{(2m)!} = 
+        (-1)^m\pi^{2m}\frac{2^{2m-1}}{(2m-1)!}(-\frac{B_{2m}}{2m})  
+    \]
+\end{proof}

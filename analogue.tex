@@ -1,0 +1,208 @@
+\section{Analogues to $L$-functions}
+Now, we'll consider generalizations of the Zeta function, namely, $L$-functions. We define
+Dirichlet Characters:
+\begin{definition}
+    Define a character \[\chi: (\zz/m\zz)^{\times}\rightarrow S^1 =\{z\in\mathbb{C} \big|\; |z|=1\}\]
+where $\chi$ is a group homomorphism $(\chi(ab)=\chi(a)\chi(b)\;\; \forall a,b\in(\zz/m\zz)^{\times})$.
+\end{definition}
+We can extend $\chi$ to a function on $\mathbb{Z}$ by 
+\[
+    \chi:\zz \rightarrow \mathbb{C}  
+\]
+\[
+    a \mapsto 
+    \begin{cases} 
+        \chi (a \;\text{mod}\; m) & (a,m) = 1 \\
+        0 & (a,m)>1
+    \end{cases}
+\]
+We'll note that we can see $\chi$ having period $m$. A primitive character mod $m$ means
+that there is no proper divisor $d|m$ st there exists $\chi_d$ st $\chi=\chi_d\circ $(reduction $\pmod d$
+on $(\zz/m\zz)^{\times}$)\\\\
+The Dirichlet L-function $L(\chi,s)$ is defined by $L(\chi,s)=\sum_{n=1}^{\infty}\frac{\chi(n)}{n^s}$
+
+Our goal is to generalize our results on the Zeta Function to Dirichlet $L$-functions.
+\begin{remark}
+A similar Euler-Product form can be derived here: For $\Re(s)>1$ and $\chi \pmod m$.
+\[
+    \prod_{p}(1-\chi(p)p^{-s})^{-1}  
+\]
+\end{remark}
+\begin{definition}
+    Define the Gauss sum 
+    \[
+        G(\chi)=\sum_{k=0}^{m-1}\chi(k)e^{2\pi ik/m}
+    \]
+\end{definition}
+This sum is quite important for calculations going forward. We thus establish a crucial identity 
+on the Gauss sum that will be useful later, namely that $|G(\chi,1)|^2=m$. We'll go through a line of lemmas
+before reaching this identity.
+
+\begin{lemma}
+    Let $\chi$ be primitive $\pmod m$. Then for any divisor $m_1|m$, there exists 
+    $c$ such that $(c,m)=1, c\equiv 1 \pmod {m_1}$ with $\chi(c)\neq 1$.
+\end{lemma}
+In fact, this can be thought of as an equivalent formulation of $\chi$ being
+primitive. This helps us show:
+\begin{lemma}
+    If $\chi$ is primitive, then $G(\chi, a) = \chi(a)G(\chi, 1)$ for every $a \in \mathbb{Z}/m\mathbb{Z}$
+\end{lemma}
+\begin{proof}
+    We separate into cases.\\\\
+    \textbf{Case 1:} $(a,m)=1$\\\\
+    We note that as $k$ runs through $\mathbb{Z}/{m\mathbb{Z}}$, $ak$ runs through
+    $\mathbb{Z}/{m\mathbb{Z}}$. Let $y=ak$. Then $\chi(y)=\chi(a)\chi(k)\implies \chi(k)
+    =\overline{\chi(a)}\chi(y)$
+    So
+    \[
+        G(\chi,a)=\sum_{k\in\mathbb{Z}/m\mathbb{Z}}\chi(k)e^{2\pi iak/m} 
+        =\sum_{k\in\mathbb{Z}/m\mathbb{Z}}\overline{\chi(a)}\chi(y)e^{2\pi iy/m} 
+    \]
+    \[
+        =\overline{\chi(a)}G(\chi,1)  
+    \]
+    \textbf{Case 2:} $(a,m)>1$\\\\
+    It is enough to show $(\chi, a)=0$. Suppose $m_1|m$. Let $d=(a,m)$, $a_1=\frac{a}{d}$, $m_1=\frac{m}{d}$. Choose 
+    $c$ that satisfies the previous lemma. Then 
+    \[
+        \chi(c)G(\chi,a)=\sum_{k\in\mathbb{Z}/m\mathbb{Z}}\chi(ck)e^{2\pi iak/m}  
+    \]
+    Then these $y=ck$ hit all of $\mathbb{Z}/m\mathbb{Z}$. Recall $c\equiv 1\pmod {m_1}$. Then
+    \[e^{2\pi iak/m}=e^{2\pi ika/m}=e^{2\pi ika_1/m_1}=e^{2\pi ikca_1/m_1}=e^{2\pi iya/m}\]
+    So $\chi(c)G(\chi,a)=\sum_{y\in\mathbb{Z}/m\mathbb{Z}}\chi(y)e^{2\pi iya/m}=G(\chi,a)$.
+    But $\chi(c)\neq 1$. So
+    \[
+        \chi(c)G(\chi,a)=G(\chi,a) \implies G(\chi,a)=0
+    \]
+    and we are done.
+\end{proof}
+Finally, we arrive at this well-known result:
+\begin{theorem}
+    Let $\chi$ be a primitive character$\pmod m$, Then $|G(\chi,1)|^2=m$
+\end{theorem}
+\begin{proof}
+This can be done with simple computations:
+\[
+    |G(\chi,1)|^2=\overline{G(\chi,1)}G(\chi,1)=\sum_{k\in\mathbb{Z}/m\mathbb{Z}}\overline{\chi(k)}e^{-2\pi ia/m}G(\chi,1)
+\]  
+By the previous lemma,
+\[
+    =\sum_{k\in\mathbb{Z}/m\mathbb{Z}}e^{-2\pi i k/m}G(\chi,k)=\sum_{k\in\mathbb{Z}/m\mathbb{Z}}
+    e^{-2\pi ik/m}\big(\sum_{j\in\mathbb{Z}/m\mathbb{Z}}\chi(j)e^{2\pi ikj/m}\big)
+\]
+\[
+    =\sum_{k\in\mathbb{Z}/m\mathbb{Z}}\big(\sum_{j\in\mathbb{Z}/m\mathbb{Z}}
+    e^{-2\pi ik/m}\chi(j)e^{2\pi ikj/m}\big)
+    =\sum_{k\in\mathbb{Z}/m\mathbb{Z}}\sum_{j\in\mathbb{Z}/m\mathbb{Z}}
+    \chi(j)e^{2\pi ik(j-1)/m}
+\]
+\[
+    =\sum_{j\in\mathbb{Z}/m\mathbb{Z}}\chi(j)\sum_{k\in\mathbb{Z}/m\mathbb{Z}}e^{2\pi ik(j-1)/m}    
+\]
+Now, $\sum_{k\in\mathbb{Z}/m\mathbb{Z}}e^{2\pi ik(j-1)/m}$ is the sum over a geometric series.
+When $j=1$, the sum goes to $m$; otherwise, the sum goes to $0$. Thus we have
+\[
+    |G(\chi,1)|^2=\sum_{j\in\mathbb{Z}/m\mathbb{Z}}\chi(j)\sum_{k\in\mathbb{Z}/m\mathbb{Z}}e^{2\pi ik(j-1)/m}
+    =\chi(1)m=m
+\]
+\end{proof}
+
+\begin{definition}
+    We define an analogue for $\xi(s)$:
+    \[\Lambda(\chi,s)=(\frac{m}{\pi})^{\frac{s}{2}}\Gamma(\frac{s+p}{2})L(\chi,s)\]
+    where $p\in \{0,1\}$ and $\chi(-1)=(-1)^p$.
+\end{definition}
+
+We want to extend some of the complex properties to our analogue. Let's
+build up some theory before we arrive at a holomorphicity theorem for $\Lambda$
+
+We have 
+    \[
+        \Gamma(\frac{s+p}{2})=\int_0^{\infty}e^{-y}y^{\frac{s+p}{2}}\frac{dy}{y}
+        = \int_0^{\infty}e^{-\pi n^2t/m}(\frac{\pi n^2t}{m})^{\frac{s+p}{2}}\frac{dt}{t}
+    \]
+    Thus, 
+    \[
+        (\frac{m}{\pi})^{\frac{s+p}{2}}\Gamma(\frac{s+p}{2}\chi(n)n^{-s})
+        =\chi(n)\int_0^{\infty}e^{-\pi n^2 t/m}n^pt^{\frac{s+p}{2}}\frac{dt}{t}
+    \]  
+    As before, we can take the sum for $n=1,\dots,\infty$ to obtain:
+    \[
+        (\frac{m}{\pi})^{p/2}\cdot\Lambda(\chi,s)=\sum_{n=1}^{\infty}\chi(n)\int_0^{\infty}e^{-\pi n^2 t/m}n^pt^{\frac{s+p}{2}}\frac{dt}{t}
+    \]
+    \[
+        =\int_0^{\infty}(\sum_{n=1}^{\infty}\chi(n)n^pe^{-\pi n^2t/m})t^{\frac{s+p}{2}}\frac{dt}{t}  
+    \]
+    Now we define some generalization of the $\Theta$ function, which will be crucial as we move forward
+    \begin{definition}
+        Set 
+        \[
+            \Theta(\chi,y)=\sum_{n\in\mathbb{Z}}\chi(n)n^pe^{-\pi n^2y/m}  
+        \]
+    \end{definition}
+    Thus, 
+    \[
+        (\frac{m}{\pi})^{p/2}\cdot\Lambda(\chi,s)=\int_0^{\infty}\frac{\Theta(\chi,t)}{2}t^{\frac{s+p}{2}}\frac{dt}{t}   
+    \]
+    \begin{theorem}
+        Again, we have a neat identity for $\Theta$:
+        \[
+            \Theta(\chi,1/y)=\frac{G(\chi)}{i^p\sqrt{m}}y^{p+\frac{1}{2}}\Theta(\overline{\chi},y)
+        \]
+    \end{theorem}
+    We now present a holomorphicity theorem for $\Lambda$
+\begin{theorem}
+    Let $\chi$ be a non-trivial primitive Dirichlet Character. Then 
+    $\Lambda(\chi,s)$ extends to a holomorphic function on all of $\mathbb{C}$
+    This extension satisfies the functional equation 
+    \[
+        \Lambda(\chi,s)=\frac{G(\chi)}{i^p\sqrt{m}}\Lambda(\overline{\chi},1-s)  
+    \]
+\end{theorem}
+\begin{proof}
+    We have
+    \[
+        (\frac{m}{\pi})^{p/2}\cdot\Lambda(\chi,s)=\int_0^1+\int_1^{\infty}=\int_1^{\infty}\frac{\Theta(\chi,1/y)}{2}y^{-(\frac{s+p}{2})}\frac{dy}{y}+\int_1^{\infty}\frac{\Theta(\chi,t)}{2}t^{\frac{s+p}{2}}\frac{dt}{t}
+    \]
+    \[
+        =\frac{G(\chi)}{i^p\sqrt{m}}\int_1^{\infty}\frac{\Theta(\overline{\chi},y)}{2}y^{p+\frac{1}{2}-(\frac{s+p}{2})}\frac{dy}{y}+\int_1^{\infty}\frac{\Theta(\chi,t)}{2}t^{\frac{s+p}{2}}\frac{dt}{t}    
+    \]
+    which is holomorphic on all of $\mathbb{C}$. Multiplying by $\frac{i^p\sqrt{m}}{G(\chi)}$, we get 
+    \[
+        (\frac{m}{\pi})^{p/2}\frac{i^p\sqrt{m}}{G(\chi)}\cdot\Lambda(\chi,s)=\int_1^{\infty}\frac{\Theta(\overline{\chi},y)}{2}y^{\frac{1-s+p}{2}}\frac{dy}{y}+\frac{i^p\sqrt{m}}{G(\chi)}\int_1^{\infty}\frac{\Theta(\chi,t)}{2}t^{\frac{s+p}{2}}\frac{dt}{t}    
+    \]
+    On the other hand, we can take 
+    \[
+        (\frac{m}{\pi})^{p/2}\Lambda(\overline{\chi},1-s)=\int_0^{\infty}
+        \frac{\Theta(\overline{\chi},t)}{2}t^{\frac{1-s+p}{2}}\frac{dt}{t}
+        =\int_1^{\infty} \frac{\Theta(\overline{\chi},t)}{2}t^{\frac{1-s+p}{2}}\frac{dt}{t}
+        +\int_1^{\infty} \frac{\Theta(\overline{\chi},\frac{1}{y})}{2}y^{-\frac{1-s+p}{2}}\frac{dy}{y}
+    \]
+    \[
+        = \int_1^{\infty} \frac{\Theta(\overline{\chi},t)}{2}t^{\frac{1-s+p}{2}}\frac{dt}{t} 
+        +\frac{G(\overline{\chi})}{i^p\sqrt{m}}\int_1^{\infty}\frac{\Theta(\chi,y)}{2}y^{p+\frac{1}{2}-(\frac{1-s+p}{2})}\frac{dy}{y}
+    \]
+    We notice that the $(\frac{m}{\pi})^{p/2}$ cancel; equating terms, we get
+    $\frac{i^p\sqrt{n}}{G(\chi)}\Lambda(\chi,s)$ agrees with $\Lambda(\overline{\chi},1-s)$ as long as 
+    $\frac{i^p\sqrt{m}}{G(\chi)}=\frac{G(\overline{\chi})}{i^p\sqrt{m}}$. If we can show this identity, 
+    we are done.\\\\
+    Recall $|G(\chi)|=\sqrt{m} \implies G(\chi)\overline{G(\chi)}=m$. Using this, note
+    \[
+        \overline{G(\chi)}=\sum_{k=0}^{m-1}\overline{\chi}(k)e^{-2\pi ik/m}=\chi(-1)\sum_{k=0}^{m-1}
+        \overline{\chi}(k)e^{2\pi ik/m}
+    \]
+    \[
+        =\chi(-1)G(\overline{\chi})=(-1)^pG(\overline{\chi})  
+    \]
+    Thus 
+    \[
+        \frac{i^p\sqrt{m}}{G(\chi)}=\frac{i^p\sqrt{m}\cdot\overline{G(\chi)}}{G(\chi)\cdot\overline{G(\chi)}}    
+        =\frac{G(\overline{\chi})}{i^p\sqrt{m}}
+    \]
+    and we're done.
+\end{proof}
+
+
+
+
+

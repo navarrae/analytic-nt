@@ -1,0 +1,99 @@
+\section{Analytic Continuation of Zeta}
+Now, we have an explicit formula for $\zeta(2m)$ in terms of Bernoulli Numbers.
+Let's extend $\zeta(s)$ to a Holomorphic Function on $\mathbb{C}\backslash\{1\}$ 
+(as opposed to $\Re(s)>1$), to find odd negative values entries of $\zeta$.
+
+\begin{definition}
+    We define the gamma Function
+    \[
+        \Gamma(z) = \int_0^{\infty}x^{z-1}e^{-x}\; dx, \;\;\;\; \Re(z)>0    
+    \]
+\end{definition}
+\begin{remark}
+    For $n\in\mathbb{Z}^+, \Gamma(n) = (n-1)!$
+\end{remark}
+A similar integration by parts argument yields $\Gamma(z+1) = z\Gamma(z)$
+for $\Re(z)>0$. This suggests a way for us to analytically continue $\Gamma$ over 
+$\mathbb{C}$. Define 
+\[
+    \Gamma(s)=\frac{\Gamma(s+1)}{s}, \;\;\; \Re(s)> -1
+\]
+and iterate to extend over $\Re(s)>-2,-3,...$, until $\Gamma$ is defined over
+$\mathbb{C}\backslash \mathbb{Z}_{\leq 0}$
+\begin{claim}
+    $\Gamma$ is holomorphic over $\mathbb{C}\backslash\mathbb{Z}_{\leq 0}$
+\end{claim}
+\begin{definition}
+    Let 
+    \[
+        \xi(s) = \pi^{-\frac{s}{2}}\Gamma(\frac{s}{2})\zeta(s)
+    \]
+\end{definition}
+For $\Re(s)>1,$
+\[
+    \pi^{-\frac{s}{2}}\Gamma(\frac{s}{2})n^{-s}=\int_0^{\infty}e^{-t}t^{\frac{s}{2}}\frac{dt}{t}n^{-s}\pi^{-\frac{s}{2}}        
+    =\int_0^{\infty}e^{-t}(\frac{t}{\pi n^2})^{\frac{5}{2}}\frac{dt}{t}. 
+\]
+Let $y=\frac{t}{\pi n^2}$.
+Then 
+\[
+    =\int_0^{\infty}e^{-\pi n^2y}y^{\frac{s}{2}}\frac{dy}{y}    
+\]
+When we sum $\sum_{n=1}^{\infty}$, it follows that 
+\[
+    \xi(s)=\sum_{n=1}^{\infty}\pi^{-\frac{s}{2}}\Gamma(\frac{s}{2})n^{-s}
+    =\sum_{n=1}^{\infty}\int_0^{\infty}e^{-\pi n^2y}y^{\frac{s}{2}}\frac{dy}{y}
+    =\int_0^{\infty}\sum_{n=1}^{\infty}e^{-\pi n^2 y}y^{\frac{s}{2}}\frac{dy}{y}
+\]
+\begin{definition}
+    We define a new function
+    \[
+        \Theta(y) = \sum_{n\in\mathbb{Z}}e^{-\pi n^2y}=1+2\sum_{n=1}^{\infty}
+        e^{-\pi n^2y}
+    \]
+\end{definition}
+\begin{theorem}
+    Let $\Theta$ be as defined above. Then 
+    \[
+        \Theta(y)=\frac{1}{\sqrt{y}}\Theta(1/y)
+    \]
+\end{theorem}
+\begin{proof}
+    A corollary of Poisson's Summation gives $\sum_{n\in\mathbb{Z}}f(n)=\sum_{n\in\mathbb{Z}}\hat{f}(n)$.
+    Using this, we can use Fourier analysis to deduce the identity. Details are omitted, 
+    as the identity for the generalized $\Theta$ function is proved later.
+\end{proof}
+This formulation will come incredibly handy for computing $\zeta(1-2m)$. 
+Let's see these consequences. We can write
+\[
+    \xi(s)=\int_0^1(\frac{\Theta(y)-1}{2})y^{\frac{s}{2}}\frac{dy}{y}+\int_1^{\infty}
+    (\frac{\Theta(y)-1}{2})y^{\frac{s}{2}}\frac{dy}{y}.
+\]
+We have 
+\[
+    \int_0^1(\frac{\Theta(y)-1}{2})y^{\frac{s}{2}}\frac{dy}{y} = 
+    -\frac{1}{2}\int_0^1y^{\frac{s}{2}}\frac{dy}{y}+\frac{1}{2}\int_0^1\Theta(y)y^{\frac{5}{2}}\frac{dy}{y}    
+\]
+    
+\[
+    =-\frac{1}{2}\frac{y^{\frac{s}{2}}}{s/2}\bigg |_0^1+\frac{1}{2}\int_1^{\infty}\Theta(1/x)x^{-\frac{s}{2}}\frac{dx}{x}
+    =-\frac{1}{s}+\frac{1}{2}\int_1^{\infty}\Theta(x)x^{\frac{1-s}{2}}\frac{dx}{x}    
+\]
+\[
+    =-\frac{1}{s}+\frac{1}{2}\int_1^{\infty}\Theta(x)x^{\frac{1-s}{2}}\frac{dx}{x}
+    =-\frac{1}{s}+ \int_1^{\infty}\frac{\Theta(x)-1}{2}x^{\frac{1-s}{2}}\frac{dx}{x}
+    +\frac{1}{2}\int_1^{\infty}x^{\frac{1-s}{2}}\frac{dx}{x}
+\]
+\[
+    =-\frac{1}{s}-\frac{1}{1-s}+\int_1^{\infty}\frac{\Theta(x)-1}{2}x^{\frac{1-s}{2}}\frac{dx}{x}
+\]  
+Now, we have 
+\[
+    \xi(s)=  -\frac{1}{s}-\frac{1}{1-s}+\int_1^{\infty}\frac{\Theta(x)-1}{2}x^{\frac{1-s}{2}}\frac{dx}{x}
+    +\int_1^{\infty}(\frac{\Theta(x)-1}{2})x^{\frac{s}{2}}\frac{dx}{x}.
+\]
+These integrals converge for any $s\in\mathbb{C}$, to holomorphic functions. 
+The rapid decrease of $\Theta(x)$ by exponentials brings down $x^{s/2}$. What's the punchline?\\\\
+We have now extended $\xi$ from $\Re(s)>1$ to $\mathbb{C}\backslash\{0,1\}$. Moreover, 
+$\forall s\in \mathbb{C}\backslash\{0,1\}$, our extension shows $\xi(s)=\xi(1-s)$. Finally, 
+$\xi$ is holomorphicon $\mathbb{C}\backslash\{0,1\}$.
